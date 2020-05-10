@@ -104,8 +104,11 @@ public class javamapping extends AbstractTransformation {
 			javamapping objJavaMapping = new javamapping();
 			
 			objJavaMapping.execute(objFileInput, objFileOutput);
+		// closing the file
+			objFileInput.close();
+			objFileOutput.close();
 			
-			System.out.println("SAP CPI Consultant");
+			System.out.println("End");
 			
 		}catch(Exception ee){
 			ee.printStackTrace();
