@@ -5,10 +5,6 @@ import com.sap.aii.mapping.api.TransformationOutput;
 import java.io.*;
 
 /**
- * 
- */
-
-/**
  * @author iDANDHER
  * 28 ENERO 2021
  */
