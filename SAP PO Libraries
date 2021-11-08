@@ -1,0 +1,103 @@
+
+
+***** Please visit https://wiki.scn.sap.com/wiki/display/XI/Where+to+get+the+libraries+for+XI+development
+
+ Where to get the libraries for XI development
+Saltar al final de los metadatos
+
+    Creado por Usuario desconocido (101lv2u7t) el sep 10, 2012
+
+Ir al inicio de los metadatos
+There are different ways to get the libraries that you need for XI development.
+
+Make sure that the libraries fit to your XI installation, so the version and SP level should be the same.
+
+See also  Get PI Libraries from ABAP Stack using ABAP Program
+From the PI installation
+
+You find the libraries in following folders of the server of your PI installation:
+PI 7.0 
+
+/usr/sap/<SID>/DVEBMGS<nr>/j2ee/cluster/server0/apps/sap.com/com.sap.xi.services
+
+  aii_map_api.jar, aii_mt_rt.jar (M)
+
+/usr/sap/<SID>/DVEBMGS<nr>/j2ee/cluster/server0/bin/ext/ ->
+
+    com.sap.aii.af.lib: aii_af_mp.jar, aii_af_ms_api.jar, aii_af_trace.jar (AM,AD)
+    com.sap.aii.security.lib: aii_security_lib.jar (AD)
+    security.class: tc_sec_ssf.jar (AD)
+    com.sap.aii.proxy.xiruntime: aii_proxy_xirt.jar (P)
+    com.sap.aii.messaging.runtime: aii_msg_runtime.jar (P,D)
+    com.sap.xi.util.misc: aii_utilxi_misc.jar (P)
+    com.sap.guid: guidgenerator.jar (AD,P)
+    sapxmltoolkit: sapxmltoolkit.jar (M,AM,AD,P)
+    tc~bl~txmanager~plb: sap.com~tc~bl~txmanagement~lib.jar (AD)
+
+/usr/sap/<SID>/DVEBMGS<nr>/j2ee/cluster/server0/bin/services/ ->
+
+    com.sap.aii.af.ms.svc: aii_af_ms_impl.jar (AM,AD)
+    com.sap.aii.af.svc: aii_af_svc.jar (AM,AD)
+    com.sap.aii.af.cpa.svc: aii_af_cpa.jar (AM,AD)
+    com.sap.aii.af.security.service: aii_af_service_message_security.jar (AD)
+
+/usr/sap/<SID>/DVEBMGS<nr>/j2ee/cluster/server0/bin/services/interfaces/appcontext
+
+appcontext_api.jar (AD)
+PI 7.1 and PI 7.3
+
+usr/sap/<SID>/DVEBMGS<nr>/j2ee/cluster/bin/ ->
+
+    ext/com.sap.aii.af.lib/lib: com.sap.aii.af.lib.mod.jar (AM,AD)
+    ext/com.sap.xi.util.misc/lib: com.sap.aii.utilxi.server.jar (P)
+    ext/com.sap.xi.util.misc/lib: com.sap.aii.utilxi.core.jar (P)  
+    ext/com.sap.xi.mapping.api.lib/lib: com.sap.xpi.ib.mapping.lib.jar (M)
+    ext/com.sap.xi.mapping.tool.lib/lib: com.sap.xi.mapping.tool.lib_api.jar (M)
+    ext/com.sap.guid: sap.com~tc~bl~guidgenerator~impl.jar (AD,P)
+    ext/security.class: sap.com~tc~sec~ssf~core.jar (AD)
+    ext/tc~bl~txmanager~plb: sap.com~tc~bl~txmanagerimpl~plb~impl.jar (AD)
+    services/com.sap.aii.proxy.svc/lib: com.sap.aii.proxy.svc_api.jar (P)
+    services/com.sap.aii.af.ms.svc/lib: com.sap.aii.af.ms.svc_api.jar (AD)
+    services/com.sap.aii.af.svc/lib: com.sap.aii.af.svc_api.jar (AM,AD)
+    services/com.sap.aii.af.cpa.svc/lib: com.sap.aii.af.cpa.svc_api.jar (AM,AD)
+    services/com.sap.aii.sec.svc/lib: com.sap.aii.sec.svc_api.jar (AD)
+    interfaces/com.sap.aii.af.ms.ifc/lib: com.sap.aii.af.ms.ifc_api.jar (AM,AD)
+    interfaces/appcontext_api: sap.com~tc~je~appcontext_api~API.jar (AD)
+    system: sap.com~tc~logging~java~impl.jar (AM,AD)
+
+AD = Adapter Development, AM = Adapter Module, D = Dispatcher Module M = Mapping, P = Java Proxy
+From service marketplace
+
+You need a user for the SAP service marketplace.
+
+    Enter service.sap.com/patches as address  in your browser window.
+    Click on the left side on: Entry by Application Group
+    Navigate: Support Packages and Patches -> SAP NetWeaver -> SAP NETWEAVER -> SAP NETWEAVER 7.0/SAP NETWEAVER PI 7.1
+    -> Entry by Component -> J2EE Adapter Engine (PI/XI)/Adapter Engine (Java EE)
+    Expand XI ADAPTER FRAMEWORK CORE 7.00/7.10 -> #OS independent and download the SP level, that fits your PI installation
+    Extract the downloaded .sca file recursively, until you get the .jar files.
+
+From NetWeaver Developer Studio 7.1
+
+To access the mapping API in a Java project in SAP NetWeaver Developer Studio 7.1, proceed as follows:
+
+1. Choose Properties in the context menu for the Java project in which you want to apply the mapping API.
+
+2. In the navigation tree choose Java Build Path and then choose the Libraries tab page.
+
+3. Choose Add Variable.
+
+4. From the list of classpath variables, select SAP_SYSTEM_ADD_LIBS and choose Extend.
+(If this variable is not available, choose Configure Variables -> New, Enter Name SAP_SYSTEM_ADD_LIBS and select path /<eclipse>/plugins/com.sap.tc.ap_XXX -> OK)
+
+5. Enhance the variable with the following path:
+comp -> SAP_XIAF -> DCs -> sap.com -> com.sap.aii.mapping.lib.facade -> _comp -> gen -> default -> public -> api -> lib -> java -> com.sap.aii.mapping.api.filter.jar
+From Java Webstart local files
+
+If none of the above mentioned ways is suitable for you, as you have no access to the ressources, you can at least get the library for mapping in the local files of your Java Webstart installation, after you have called the Integration Directory (Enterprise Service Directory) from your PC.
+
+    Find the Java Webstart cache folder on your PC (Start Java Webstart and choose file -> options -> extended)
+    Navigate to the folder http -> <server> -> <port> -> DMrep -> DMrepository
+    Here you find:
+        For PI 7.0 RMaii_map_api.jar and RMsapxmltoolkit.jar which you can use instead of aii_map_api.jar and sapxmltoolkit.jar
+        For PI 7.1 RMcom.sap.xpi.ib.mapping.lib.jar and RMsap.com~tc~sapxmltoolkit~sapxmltoolkit.jar which you can use instead of com.sap.xpi.ib.mapping.lib.jar and sap.com~tc~sapxmltoolkit~sapxmltoolkit.jar 
